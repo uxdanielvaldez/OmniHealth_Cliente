@@ -159,8 +159,22 @@ export default {
             .then(res => {
                 Notiflix.Notify.Success("CITA CREADA CORRECTAMENTE")
                 setTimeout( () => router.push('/'), 3000)
+                this.agendarCita()
             })
             
+        },
+        agendarCita() {
+            const body = {
+                title: this.data.nombre,
+                start: moment(this.data.fecha).format('YYYY/MM/DD'),
+                end: moment(this.data.fecha).format('YYYY/MM/DD'),
+                user_creation: localStorage.getItem("username")
+            }
+            axios
+            .post('http://localhost:3000/api/calendar', body)
+            .then(res => {
+                console.log('AGENDADO')
+            })
         },
         viewUser() {
             axios

@@ -8,9 +8,10 @@
             <p>Entre para acceder a su cuenta</p>
                 <div class="form">
                     <div class="input-container">
-                        <input type="text" v-model="username" required=""/>
+                        <input type="text" style="text-transform:lowercase;" v-model="username" @change="validateMail" required=""/>
                         <label>Correo Electronico</label>		
                     </div>
+                    
                     <div class="input-container">		
                         <input type="password" v-model="password" required=""/>
                         <label>Contraseña</label>
@@ -30,11 +31,16 @@
 import axios from 'axios'
 import Notiflix from 'notiflix'
 import router from '../router/index'
+const emailRe = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
     data() {
         return {
             username: '',
-            password: ''
+            password: '',
+            reg: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/,
+            errorMail: null,
+            validate: null,
+            validate2: null
         }
     },
     mounted() {
@@ -45,9 +51,40 @@ export default {
         location.reload();
         }
 
+    if(localStorage.getItem("accessToken")) {
+        router.push("/")
+      } else {
+        router.push('/login')
+      }
+
+    if(localStorage.getItem("estadoUser") == 'INACTIVO') {
+        localStorage.clear()
+        Notiflix.Notify.Failure("USUARIO NO AUTORIZADO")
+        this.validUser()
+      } else {
+        this.validUser()
+      }
+
     },
     methods: {
+        validateMail() {
+        if (emailRe.test(this.username)) {
+        this.validate = true
+      } else {
+        this.validate = false
+        Notiflix.Notify.Failure("Por favor ingrese un formato de correo valido")
+      }
+        },
         login() {
+        if(this.username == null || this.username == '') {
+           Notiflix.Notify.Failure("Por favor ingrese un correo electronico")
+           this.validate2 = false
+        } else {
+            this.validate2 = true
+        }
+        if(this.validate == false || this.validate2 == false) {
+            Notiflix.Notify,Failure("Por favor verifique su información")
+        } else  {
             const body = {
                 username: this.username,
                 password: this.password
@@ -68,11 +105,19 @@ export default {
             .catch((err) => {
                 Notiflix.Notify.Failure(`SE HA PRESENTADO EL SIGUIENTE ERROR: ${err}`)
             })
+        }
         },
         goRegister() {
             router.push('/register')
             localStorage.clear()
-        }
+        },
+            validUser() {
+      if(localStorage.getItem("accessToken")) {
+          router.push("/")
+      } else {
+        router.push('/login')
+      }
+    }
     }
 }
 </script>

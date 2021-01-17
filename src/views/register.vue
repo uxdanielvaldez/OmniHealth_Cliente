@@ -1,5 +1,7 @@
 <template>
     <div>
+        <div class="bg1"></div>
+        <div class="bg2"></div>
         <div class="container login-box">
             <h1>OmniHealth</h1>
             <h6>Registrar</h6>
@@ -18,7 +20,7 @@
                         <label>Cedula o Pasaporte</label>		
                     </div>
                     <div class="input-container">
-                        <input type="text" v-model="username" required=""/>
+                        <input type="text" v-model="username" style="text-transform:lowercase;" required=""/>
                         <label>Correo Electronico</label>		
                     </div>
                     <div class="input-container">
@@ -43,6 +45,8 @@
 import axios from 'axios'
 import Notiflix from 'notiflix'
 import router from '../router/index'
+import moment from 'moment'
+moment.locale('es-do')
 export default {
     data() {
         return {
@@ -66,7 +70,8 @@ export default {
                 apellido: this.apellido,
                 cedula: this.identificacion,
                 rol: 'USUARIO',
-                estado: 'ACTIVO'
+                estado: 'ACTIVO',
+                fechaDeRegistro: moment(Date()).format('LLL')
             }
             axios
             .post('https://api.omnihealth.com.do/api/register', body)
@@ -100,12 +105,35 @@ export default {
         -moz-box-shadow: 1px 10px 45px -15px rgba(0,0,0,0.60);
         box-shadow: 1px 10px 45px -15px rgba(0,0,0,0.60);
 
-        margin-top: 7%;
+        margin-top: -810px;
         padding-top: 30px;
         padding-bottom: 30px;
         width: 30%;
 
         border-radius: 5px;
+       z-index: 5;
+       overflow: hidden;
+    }
+
+    .bg1 {
+        background-image: url('../assets/b1.png');
+        background-position:right;
+        background-size: 30%;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        margin-top: -20px;
+    }
+    .bg2 {
+        background-image: url('../assets/b2.png');
+        background-position: left;
+        background-size: 30%;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 500px;
+        margin-top: -150px;
+        overflow: hidden;
     }
 
     .login-box > h1 {
@@ -217,7 +245,24 @@ export default {
 
 @media only screen and (max-width: 1000px) {
     .login-box {
-       width: 90%;
+        -webkit-box-shadow: 1px 10px 45px -15px rgba(0,0,0,0.60);
+        -moz-box-shadow: 1px 10px 45px -15px rgba(0,0,0,0.60);
+        box-shadow: 1px 10px 45px -15px rgba(0,0,0,0.60);
+
+        margin-top: 5%;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+        width: 90%;
+
+        border-radius: 5px;
+    }
+
+    .bg1 {
+        display: none;
+    }
+    .bg2 {
+        display: none;
     }
 }
 

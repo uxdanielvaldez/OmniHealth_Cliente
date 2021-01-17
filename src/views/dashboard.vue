@@ -4,6 +4,8 @@
         <br>
         <box />
         <br>
+        <cards />
+        <br>
         <div class="container citas">
             <h1>Hoy</h1>
             <br>
@@ -26,13 +28,15 @@ import box from '../components/box_dashboard'
 import citashoy from '../components/citas_hoy'
 import citasproximas from '../components/citas_proximas'
 import citaspasadas from '../components/citas_pasadas'
+import cards from '../components/cards'
 export default {
     components: {
         navbar,
         box,
         citashoy,
         citasproximas,
-        citaspasadas
+        citaspasadas,
+        cards
     }
 }
 </script>

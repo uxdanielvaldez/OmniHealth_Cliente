@@ -36,7 +36,7 @@
                         </a>
                       </router-link>
                         
-                      <router-link to="/calendar">
+                      <router-link to="/calendar2">
                         <a class="nav__link">
                             <i class='bx bx-calendar nav__icon' ></i>
                             <span class="nav__name">Calendarios</span>
@@ -142,7 +142,7 @@ linkColor.forEach(l=> l.addEventListener('click', colorLink))
       },
     validUser() {
       if(localStorage.getItem("accessToken")) {
-
+        
       } else {
         router.push('/login')
       }

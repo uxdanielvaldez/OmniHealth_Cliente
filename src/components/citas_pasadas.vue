@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 
-                <div class="card" style="width: 15rem;" v-for="(item) in data" v-bind:key="item">
+                <div class="card" style="width: 15rem;" v-for="(item) in data" v-bind:key="item._id">
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-notes-medical"></i> {{ item.nombre }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-comment-medical" ></i> {{ item.motivo }}</h6>

@@ -6,6 +6,11 @@
         <div class="container">
             <button class="btn btn-danger" @click="changeState">Cerrar Cita</button>
             <br>
+            <p>
+                User: admin,
+                Password: Omnihealth123
+            </p>
+            <br>
             <div id="meeting"></div>
             <textarea class="form-control" v-model="notas" placeholder="Notas"></textarea>
             <br>
